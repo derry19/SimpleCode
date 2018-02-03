@@ -52,7 +52,18 @@ class Bipartile:
 			color = 1-color
 		return True
 
-
-
+# find a cycle in udg
+# find an edge connects current node to a visited node and the visited node is not its parent
+class Undirect_find_cycle:
+	def hasCycle(self, node, parent):
+		self.visited[node] = True
+		neighbors = self.adjacency_list[node]
+		for i in neighbors:
+			if not self.visited[i]:
+				if self.hasCycle(i, node):
+					return True
+			elif i != parent:
+				return True 
+		return False 
 
 
