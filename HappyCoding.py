@@ -18,8 +18,18 @@ class CONNECTED_COMPONENT:
 		self.id[node] = self.count
 		neighbors = self.adjacency_list[node]
 		for i in neighbors:
-			if not visited[i]:
+			if not self.visited[i]:
 				self.dfs(i)
+
+	def dfs_nonrecursive(self, node):
+		stack = [node]
+		while stack:
+			cur = stack.pop()
+			self.visited[cur] = True
+			neighbors = self.adjacency_list[cur]
+			for i in neighbors:
+				if not self.visited[i]:
+					stack.append(i)
 
 	def sameComponent(self, i, j):
 		return self.id[i] == self.id[j]
@@ -67,3 +77,6 @@ class Undirect_find_cycle:
 		return False 
 
 
+# Euler cycle
+
+# 
