@@ -21,7 +21,13 @@ class CONNECTED_COMPONENT:
 			if not self.visited[i]:
 				self.dfs(i)
 
-	def dfs_nonrecursive(self, node):
+	def sameComponent(self, i, j):
+		return self.id[i] == self.id[j]
+
+	def componentCount(self):
+		return count
+
+	def dfs_iterative(self, node):
 		stack = [node]
 		while stack:
 			cur = stack.pop()
@@ -31,11 +37,45 @@ class CONNECTED_COMPONENT:
 				if not self.visited[i]:
 					stack.append(i)
 
-	def sameComponent(self, i, j):
-		return self.id[i] == self.id[j]
+	# design a linear-time algorithm to find a vertex such that 
+	# its maximum distance from any other vertex is minimized.
+	def center(self):
+		leaves = [i in range(self.num) if len(self.adjacency_list[i]) == 1]
+		n = num 
+		while n > 2:
+			temp = []
+			n -= len(leaves)
+			for leaf in leaves:
+				cur = self.adjacency_list[leaf]
+				connected = cur.pop()
+				self.adjacency_list[connected].remove(leaf)
+				if len(self.adjacency_list[connected]) == 1:
+					temp.append(connected)
+			leaves = temp 
+		return leaves
 
-	def componentCount(self):
-		return count
+
+
+	# design a linear-time algorithm to find the longest simple path in the graph.
+	# second solution: bfs find one end of longest path, then bsf from that end find
+	# the other end of the longest path
+	def diameter(self, node):
+		if not node: return (0, 0) #(max_branch, cur_max)
+		neighbors = self.adjacency_list[node]
+		f = s = 0
+		cur_max = 0
+		for i in neighbors:
+			b, t = self.diameter(i)
+			cur_max = max(cur_max, t)
+			if b > f:
+				f, s = b, f
+			elif b > s:
+				s = b 
+		return (max(f, s)+1, cur_max)
+		
+
+
+		
 
 # bfs approach for bipartite problem
 class Bipartile:
